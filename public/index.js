@@ -75,6 +75,8 @@ $(document).ready(() => {
         
         addMessage(id, 'You', currentTime, text);
 
+        $(`#sidebar #tab-${id} .last-message`).html(text);
+
         $('textarea').val('');
     }
 
