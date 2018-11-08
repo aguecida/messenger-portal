@@ -29,15 +29,7 @@ $(document).ready(() => {
 
         let formattedTime = moment(data.timestamp / 1000).format('h:mm a');
 
-        let messageTemplate = $('#message-template').html();
-
-        let messageHtml = Mustache.render(messageTemplate, {
-            sender: data.sender.id,
-            timestamp: formattedTime,
-            text: data.message.text
-        });
-
-        $(`#conversation-${data.sender.id}`).append(messageHtml);
+        addMessage(data.sender.id, data.sender.id, formattedTime, data.message.text);
     });
 
     $(document).on('click', '.tab', event => {
@@ -51,4 +43,50 @@ $(document).ready(() => {
         let id = $(event.currentTarget).attr('id').substring(4);
         $(`#conversation-${id}`).addClass('active');
     });
+
+    $('button').on('click', () => {
+        sendMessage();
+    });
+
+    $('textarea').on('keypress', (e) => {
+        let code = (e.keyCode ? e.keyCode : e.which);
+
+        if (code === 13) {
+            e.preventDefault();
+            sendMessage();
+        }
+    });
+
+    function getActiveTabId() {
+        let id = $('#sidebar').find('.active').attr('id');
+
+        if (id) {
+            return id.substring(4);
+        }
+    }
+
+    function sendMessage() {
+        let id = getActiveTabId();
+
+        if (!id) return;
+
+        let currentTime = new moment().format('h:mm a');
+        let text = $('textarea').val();
+        
+        addMessage(id, 'You', currentTime, text);
+
+        $('textarea').val('');
+    }
+
+    function addMessage(id, sender, timestamp, text) {
+        let messageTemplate = $('#message-template').html();
+
+        let messageHtml = Mustache.render(messageTemplate, {
+            sender: sender,
+            timestamp: timestamp,
+            text: text
+        });
+
+        $(`#conversation-${id}`).append(messageHtml);
+    }
 });
