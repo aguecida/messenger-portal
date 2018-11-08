@@ -3,9 +3,14 @@ const express = require('express');
 const socketIO = require('socket.io');
 const path = require('path');
 const bodyParser = require('body-parser');
+const request = require('request');
+
+require('dotenv').config();
 
 const publicPath = path.join(__dirname, './public');
 const port = process.env.PORT || 8080;
+const host = process.env.HOST;
+const accessToken = process.env.ACCESS_TOKEN;
 
 const app = express();
 const server = http.Server(app);
@@ -14,8 +19,12 @@ const io = socketIO(server);
 app.use(express.static(publicPath));
 app.use(bodyParser.json());
 
-io.on('connection', () => {
+io.on('connection', socket => {
     console.log('Connection established');
+
+    let endpoint = `${host}:${port}`;
+
+    socket.emit('config', { endpoint });
 });
 
 app.get('/test', (req, res) => {
@@ -56,6 +65,29 @@ app.post('/webhook', (req, res) => {
     });
 
     res.status(200).send('EVENT_RECEIVED');
+});
+
+app.post('/send', (req, res) => {
+    if (!accessToken) {
+        res.sendStatus(500);
+        return;
+    }
+
+    let options = {
+        url: `https://graph.facebook.com/me/messages?access_token=${accessToken}`,
+        method: 'post',
+        body: req.body,
+        json: true
+    };
+
+    request(options, (error, response, body) => {
+        if (error) {
+            console.error('error posting json: ', error);
+            throw error;
+        }
+
+        res.sendStatus(200);
+    });
 });
 
 server.listen(port, () => {

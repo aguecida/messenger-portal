@@ -1,5 +1,10 @@
 $(document).ready(() => {
     let socket = io();
+    let endpoint;
+
+    socket.on('config', data => {
+        endpoint = data.endpoint;
+    });
 
     socket.on('newMessage', data => {
         // Create new tab for first message in conversation
@@ -80,6 +85,24 @@ $(document).ready(() => {
         $(`#sidebar #tab-${id} .last-message`).html(text);
 
         $('textarea').val('');
+
+        let data = {
+            recipient: { id },
+            message: { text }
+        };
+        
+        $.ajax({
+            url: `${endpoint}/send`,
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function() {
+                console.log('Sent message successfully!');
+            },
+            error: function() {
+                alert('Error sending message!');
+            }
+        });
     }
 
     function addMessage(id, sender, timestamp, text) {
