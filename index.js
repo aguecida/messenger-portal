@@ -22,14 +22,9 @@ app.use(bodyParser.json());
 io.on('connection', socket => {
     console.log('Connection established');
 
-    let endpoint = `${host}:${port}`;
+    let endpoint = `${host}`;
 
     socket.emit('config', { endpoint });
-});
-
-app.get('/test', (req, res) => {
-    //io.sockets.emit('test', 'test123');
-    res.sendStatus(200);
 });
 
 app.get('/webhook', (req, res) => {
