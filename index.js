@@ -4,6 +4,7 @@ const socketIO = require('socket.io');
 const path = require('path');
 const bodyParser = require('body-parser');
 const request = require('request');
+const { validate } = require('./middleware/validate');
 
 require('dotenv').config();
 
@@ -45,7 +46,7 @@ app.get('/webhook', (req, res) => {
     }
 });
 
-app.post('/webhook', (req, res) => {
+app.post('/webhook', validate, (req, res) => {
     let body = req.body;
 
     if (body.object !== 'page') {
