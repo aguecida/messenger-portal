@@ -3,31 +3,52 @@ $(document).ready(() => {
 
     socket.on('newMessage', data => {
         // Create new tab for first message in conversation
-        if (!$(`#sidebar #${data.sender.id}`).length) {
-            let template = $('#tab-template').html();
+        if (!$(`#tab-${data.sender.id}`).length) {
+            let conversationTemplate = $('#conversation-template').html();
+            let tabTemplate = $('#tab-template').html();
 
-            let html = Mustache.render(template, {
+            let isFirstTab = $('#sidebar').children().length === 0;
+
+            let conversationHtml = Mustache.render(conversationTemplate, {
                 sender: data.sender.id,
-                lastMessage: data.message.text
+                active: isFirstTab ? 'active': ''
             });
 
-            $('#sidebar').append(html);
+            let tabHtml = Mustache.render(tabTemplate, {
+                sender: data.sender.id,
+                lastMessage: data.message.text,
+                active: isFirstTab ? 'active' : ''
+            });
+            
+            $('#sidebar').append(tabHtml);
+            $('#conversation-container').append(conversationHtml);
         }
 
         // Set last message in tab preview
-        $(`#sidebar #${data.sender.id} .last-message`).html(data.message.text);
-
+        $(`#sidebar #tab-${data.sender.id} .last-message`).html(data.message.text);
 
         let formattedTime = moment(data.timestamp / 1000).format('h:mm a');
 
-        let template = $('#message-template').html();
+        let messageTemplate = $('#message-template').html();
 
-        let html = Mustache.render(template, {
+        let messageHtml = Mustache.render(messageTemplate, {
             sender: data.sender.id,
             timestamp: formattedTime,
             text: data.message.text
         });
 
-        $('.conversation').append(html);
+        $(`#conversation-${data.sender.id}`).append(messageHtml);
+    });
+
+    $(document).on('click', '.tab', event => {
+        if ($(event.currentTarget).hasClass('active')) return;
+
+        $('#sidebar').find('.tab').removeClass('active');
+        $('#conversation-container').find('.conversation').removeClass('active');
+        
+        $(event.currentTarget).addClass('active');
+
+        let id = $(event.currentTarget).attr('id').substring(4);
+        $(`#conversation-${id}`).addClass('active');
     });
 });

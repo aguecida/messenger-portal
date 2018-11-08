@@ -101,3 +101,13 @@ button {
 .msg-text {
     margin-top: 5px;
 }
+
+.conversation {
+    display: none;
+    overflow: auto;
+    height: calc(100vh - 70px);
+}
+
+.conversation.active {
+    display: block !important;
+}
