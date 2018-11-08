@@ -1,0 +1,103 @@
+body, button, input, textarea {
+    font: 400 14px/20px 'Roboto', sans-serif;
+}
+
+html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#main {
+    display: flex;
+}
+
+#sidebar {
+    background: #fafafa;
+    border-right: 1px solid #ddd;
+    flex: 0 0 250px;
+    height: 100vh;
+    z-index: 1;
+}
+
+#conversation {
+    flex: 1 1 auto;
+}
+
+#editor {
+    background: #eee;
+    height: 70px;
+    position: fixed;
+    bottom: 0;
+    left: 250px;
+    width: calc(100vw - 250px);
+}
+
+textarea {
+    border-top: 1px solid #ddd !important;
+    padding: 5px 8px;
+    outline: none;
+    border: none;
+    resize: none;
+    height: 70px;
+    width: calc(100vw - 250px - 70px - 16px);
+}
+
+button {
+    font-size: 20px;
+    outline: none;
+    border: none;
+    box-shadow: none;
+    color: #fff;
+    background: #2196F3;
+    cursor: pointer;
+    float: right;
+    height: 70px;
+    width: 70px;
+}
+
+.tab {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 15px 10px 40px;
+    cursor: pointer;
+    position: relative;
+}
+
+.tab.active {
+    background: #fff !important;
+}
+
+.tab:hover {
+    background: #f1f1f1;
+}
+
+.chat-icon {
+    position: absolute;
+    left: 10px;
+    top: 16px;
+    font-size: 24px;
+    color: #4d96f3;
+}
+
+.last-message {
+    font-size: 12px;
+    color: #aaa;
+}
+
+.msg {
+    padding: 15px 30px;
+    border-bottom: 1px solid #eee;
+}
+
+.msg-sender {
+    font-weight: bold;
+}
+
+.msg-timestamp {
+    font-size: 12px;
+    margin-left: 10px;
+    color: #777;
+}
+
+.msg-text {
+    margin-top: 5px;
+}
