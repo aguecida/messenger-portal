@@ -32,9 +32,7 @@ $(document).ready(() => {
         // Set last message in tab preview
         $(`#sidebar #tab-${data.sender.id} .last-message`).html(data.message.text);
 
-        let formattedTime = moment(data.timestamp / 1000).format('h:mm a');
-
-        addMessage(data.sender.id, data.sender.id, formattedTime, data.message.text);
+        addMessage(data.sender.id, data.sender.id, data.message.text);
     });
 
     $(document).on('click', '.tab', event => {
@@ -75,12 +73,11 @@ $(document).ready(() => {
 
         if (!id) return;
 
-        let currentTime = new moment().format('h:mm a');
         let text = $('textarea').val();
         
         if (!text) return;
 
-        addMessage(id, 'You', currentTime, text);
+        addMessage(id, 'You', text);
 
         $(`#sidebar #tab-${id} .last-message`).html(text);
 
@@ -105,12 +102,14 @@ $(document).ready(() => {
         });
     }
 
-    function addMessage(id, sender, timestamp, text) {
+    function addMessage(id, sender, text) {
+        let currentTime = new moment().format('h:mm a');
+
         let messageTemplate = $('#message-template').html();
 
         let messageHtml = Mustache.render(messageTemplate, {
             sender: sender,
-            timestamp: timestamp,
+            timestamp: currentTime,
             text: text
         });
 
