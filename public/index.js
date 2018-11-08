@@ -73,6 +73,8 @@ $(document).ready(() => {
         let currentTime = new moment().format('h:mm a');
         let text = $('textarea').val();
         
+        if (!text) return;
+
         addMessage(id, 'You', currentTime, text);
 
         $(`#sidebar #tab-${id} .last-message`).html(text);
