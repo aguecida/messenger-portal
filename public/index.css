@@ -19,7 +19,7 @@ html, body {
     z-index: 1;
 }
 
-#conversation {
+#conversation-container {
     flex: 1 1 auto;
 }
 

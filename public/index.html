@@ -1,44 +1,37 @@
 <!DOCTYPE html>
 <html>
     <head>
-            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+        <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link href="index.css" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.0/mustache.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
+
+        <script id="message-template" type="text/template">
+            <div class="msg">
+                <span class="msg-sender">{{sender}}</span>
+                <span class="msg-timestamp">{{timestamp}}</span>
+                <div class="msg-text">{{text}}</div>
+            </div>
+        </script>
+
+        <script id="tab-template" type="text/template">
+            <div id="{{sender}}" class="tab">
+                <i class="fab fa-facebook-messenger chat-icon"></i>
+                <div>{{sender}}</div>
+                <div class="last-message">{{lastMessage}}</div>
+            </div>
+        </script>
+
         <script src="index.js"></script>
     </head>
     <body>
         <div id="main">
-            <div id="sidebar">
-                <div class="tab">
-                    <i class="fab fa-facebook-messenger chat-icon"></i>
-                    <div class="name">Alexander</div>
-                    <div class="last-message">Hey there</div>
-                </div>
-                <div class="tab">
-                    <i class="fab fa-facebook-messenger chat-icon"></i>
-                    <div class="name">Jerry</div>
-                    <div class="last-message">Test message</div>
-                </div>
-                <div class="tab">
-                    <i class="fab fa-facebook-messenger chat-icon"></i>
-                    <div class="name">John</div>
-                    <div class="last-message">Okay</div>
-                </div>
-            </div>
-            <div id="conversation">
+            <div id="sidebar"></div>
+            <div id="conversation-container">
                 <div class="conversation">
-                    <div class="msg">
-                        <span class="msg-sender">You</span>
-                        <span class="msg-timestamp">3 minutes ago</span>
-                        <div class="msg-text">Hey there</div>
-                    </div>
-                    <div class="msg">
-                        <span class="msg-sender">You</span>
-                        <span class="msg-timestamp">1 minutes ago</span>
-                        <div class="msg-text">Are you there?</div>
-                    </div>
                 </div>
                 <div id="editor">
                     <textarea placeholder="Enter message here"></textarea>
