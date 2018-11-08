@@ -57,7 +57,7 @@ button {
 
 .tab {
     border-bottom: 1px solid #ddd;
-    padding: 10px 15px 10px 40px;
+    padding: 15px 15px 15px 50px;
     cursor: pointer;
     position: relative;
 }
@@ -72,9 +72,9 @@ button {
 
 .chat-icon {
     position: absolute;
-    left: 10px;
-    top: 16px;
-    font-size: 24px;
+    left: 13px;
+    top: 19px;
+    font-size: 30px;
     color: #4d96f3;
 }
 
@@ -84,8 +84,11 @@ button {
 }
 
 .msg {
-    padding: 15px 30px;
-    border-bottom: 1px solid #eee;
+    padding: 10px 30px;
+}
+
+.msg:hover {
+    background: #fafafa;
 }
 
 .msg-sender {
