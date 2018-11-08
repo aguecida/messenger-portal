@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 io.on('connection', socket => {
     console.log('Connection established');
 
-    let endpoint = `${host}`;
+    let endpoint = process.env.NODE_ENV === 'development' ? `${host}:${port}` : host;
 
     socket.emit('config', { endpoint });
 });
