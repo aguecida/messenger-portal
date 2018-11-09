@@ -7,7 +7,7 @@ const request = require('request');
 const { validate } = require('./middleware/validate');
 require('dotenv').config();
 
-const publicPath = path.join(__dirname, './public');
+const publicPath = path.join(__dirname, '../public');
 const port = process.env.PORT || 8080;
 const host = process.env.HOST;
 const accessToken = process.env.ACCESS_TOKEN;
