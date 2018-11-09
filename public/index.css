@@ -109,6 +109,7 @@ button {
 
 .msg-bubble img {
     max-width: 300px;
+    margin: 5px 0;
 }
 
 .conversation {
