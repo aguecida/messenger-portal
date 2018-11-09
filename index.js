@@ -18,7 +18,12 @@ const server = http.Server(app);
 const io = socketIO(server);
 
 app.use(express.static(publicPath));
-app.use(bodyParser.json());
+
+app.use(bodyParser.json({
+    verify(req, res, buf) {
+        req.rawBody = buf;
+    }
+}));
 
 io.on('connection', socket => {
     console.log('Connection established');
