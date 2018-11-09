@@ -121,3 +121,18 @@ button {
 .conversation.active {
     display: block !important;
 }
+
+@media only screen and (max-width: 700px) {
+    #sidebar {
+        flex: 0 0 200px;
+    }
+    
+    #editor {
+        left: 200px;
+        width: calc(100vw - 200px);
+    }
+    
+    textarea {
+        width: calc(100vw - 200px - 70px - 16px);
+    }
+}
