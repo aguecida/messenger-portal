@@ -84,25 +84,27 @@ button {
 }
 
 .msg {
-    padding: 10px 30px;
+    display: flex;
+    padding: 5px 30px;
 }
 
-.msg:hover {
-    background: #fafafa;
+.msg.you {
+    flex-direction: row-reverse;
 }
 
-.msg-sender {
-    font-weight: bold;
+.msg.you .msg-bubble {
+    background: #2196F3;
+    color: #fff;
 }
 
-.msg-timestamp {
-    font-size: 12px;
-    margin-left: 10px;
-    color: #777;
+.msg.them .msg-bubble {
+    background: #eee;
 }
 
-.msg-text {
-    margin-top: 5px;
+.msg-bubble {
+    padding: 10px 20px;
+    border-radius: 20px;
+    max-width: 300px;
 }
 
 .conversation {

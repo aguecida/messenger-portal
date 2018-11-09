@@ -32,7 +32,7 @@ $(document).ready(() => {
         // Set last message in tab preview
         $(`#sidebar #tab-${data.sender.id} .last-message`).html(data.message.text);
 
-        addMessage(data.sender.id, data.sender.id, data.message.text);
+        addMessage(data.sender.id, data.sender.id, 'them', data.message.text);
     });
 
     $(document).on('click', '.tab', event => {
@@ -77,7 +77,7 @@ $(document).ready(() => {
         
         if (!text) return;
 
-        addMessage(id, 'You', text);
+        addMessage(id, 'You', 'you', text);
 
         $(`#sidebar #tab-${id} .last-message`).html(text);
 
@@ -102,15 +102,16 @@ $(document).ready(() => {
         });
     }
 
-    function addMessage(id, sender, text) {
-        let currentTime = new moment().format('h:mm a');
+    function addMessage(id, sender, type, text) {
+        let timestamp = new moment().format('h:mm a');
 
         let messageTemplate = $('#message-template').html();
 
         let messageHtml = Mustache.render(messageTemplate, {
-            sender: sender,
-            timestamp: currentTime,
-            text: text
+            sender,
+            type,
+            timestamp,
+            text
         });
 
         $(`#conversation-${id}`).append(messageHtml);

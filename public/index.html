@@ -15,10 +15,8 @@
         </script>
 
         <script id="message-template" type="text/template">
-            <div class="msg">
-                <span class="msg-sender">{{sender}}</span>
-                <span class="msg-timestamp">{{timestamp}}</span>
-                <div class="msg-text">{{text}}</div>
+            <div class="msg {{type}}">
+                <div class="msg-bubble" title="Sent at {{timestamp}}">{{text}}</div>
             </div>
         </script>
 
