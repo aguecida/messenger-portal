@@ -29,22 +29,22 @@ $(document).ready(() => {
             $('#conversation-container').append(conversationHtml);
         }
 
-        if (data.message.attachments.length > 0) {
+        if (data.message.attachments && data.message.attachments.length > 0) {
             let attachment = data.message.attachments[0];
 
             if (attachment.type === 'image') {
                 let url = attachment.payload.url;
 
                 $(`#sidebar #tab-${data.sender.id} .last-message`).html('<i>New attachment</i>');
-            }
 
-            addMessage(data.sender.id, data.sender.id, 'them', null, url);
+                addMessage(data.sender.id, data.sender.id, 'them', null, url);
+            }
         }
         else {
             // Set last message in tab preview
             $(`#sidebar #tab-${data.sender.id} .last-message`).html(data.message.text);
 
-            addMessage(data.sender.id, data.sender.id, 'them', data.message.text);
+            addMessage(data.sender.id, data.sender.id, 'them', data.message.text, null);
         }
     });
 

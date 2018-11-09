@@ -107,6 +107,10 @@ button {
     max-width: 300px;
 }
 
+.msg-bubble img {
+    max-width: 300px;
+}
+
 .conversation {
     display: none;
     overflow: auto;
