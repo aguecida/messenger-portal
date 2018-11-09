@@ -129,5 +129,6 @@ $(document).ready(() => {
         });
 
         $(`#conversation-${id}`).append(messageHtml);
+        $(`#conversation-${id}`).scrollTop(9999999);
     }
 });
