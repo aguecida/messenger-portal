@@ -5,7 +5,6 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const request = require('request');
 const { validate } = require('./middleware/validate');
-
 require('dotenv').config();
 
 const publicPath = path.join(__dirname, './public');

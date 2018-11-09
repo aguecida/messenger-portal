@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 
 let validate = (req, res, next) => {
+    // Bypass validation in dev mode
     if (process.env.NODE_ENV === 'development') {
         next();
         return;
@@ -8,6 +9,7 @@ let validate = (req, res, next) => {
 
     console.log('Entering validation middleware');
 
+    // Hash request body using SHA1
     const hmac = crypto.createHmac('sha1', process.env.APP_SECRET);
     hmac.update(req.rawBody, 'utf-8');
 
