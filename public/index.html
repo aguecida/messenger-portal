@@ -16,7 +16,14 @@
 
         <script id="message-template" type="text/template">
             <div class="msg {{type}}">
-                <div class="msg-bubble" title="Sent at {{timestamp}}">{{text}}</div>
+                <div class="msg-bubble" title="Sent at {{timestamp}}">
+                    {{#text}}
+                        <span>{{text}}</span>
+                    {{/text}}
+                    {{#imageUrl}}
+                        <img src="{{imageUrl}}" />
+                    {{/image}}
+                </div>
             </div>
         </script>
 

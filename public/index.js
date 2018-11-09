@@ -29,10 +29,23 @@ $(document).ready(() => {
             $('#conversation-container').append(conversationHtml);
         }
 
-        // Set last message in tab preview
-        $(`#sidebar #tab-${data.sender.id} .last-message`).html(data.message.text);
+        if (data.message.attachments.length > 0) {
+            let attachment = data.message.attachments[0];
 
-        addMessage(data.sender.id, data.sender.id, 'them', data.message.text);
+            if (attachment.type === 'image') {
+                let url = attachment.payload.url;
+
+                $(`#sidebar #tab-${data.sender.id} .last-message`).html('<i>New attachment</i>');
+            }
+
+            addMessage(data.sender.id, data.sender.id, 'them', null, url);
+        }
+        else {
+            // Set last message in tab preview
+            $(`#sidebar #tab-${data.sender.id} .last-message`).html(data.message.text);
+
+            addMessage(data.sender.id, data.sender.id, 'them', data.message.text);
+        }
     });
 
     $(document).on('click', '.tab', event => {
@@ -102,7 +115,7 @@ $(document).ready(() => {
         });
     }
 
-    function addMessage(id, sender, type, text) {
+    function addMessage(id, sender, type, text, imageUrl) {
         let timestamp = new moment().format('h:mm a');
 
         let messageTemplate = $('#message-template').html();
@@ -111,7 +124,8 @@ $(document).ready(() => {
             sender,
             type,
             timestamp,
-            text
+            text,
+            imageUrl
         });
 
         $(`#conversation-${id}`).append(messageHtml);
