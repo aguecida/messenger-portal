@@ -8,8 +8,9 @@ The messenger portal is an application that uses the [Facebook Messenger Platfor
 
 The following environment variables are required for the webhook:
 
-* HOST - The API endpoint of the webhook service
-* ACCESS_TOKEN - The access token of the Facebook page that is needed to make Facebook API requests (e.g. send message)
+* NODE_ENV - The deployment type the application is running under (`development` or `production`).
+* HOST - The API endpoint of the webhook service.
+* ACCESS_TOKEN - The access token of the Facebook page that is needed to make Facebook API requests (e.g. send message).
 * APP_SECRET - The secret of the Facebook app. This secret is used to hash the message payload of messages sent to the webhook. This is used to validate the origin of incoming messages to the webhook.
 
 For development, these variables can be added to a `.env` file in the root folder.
